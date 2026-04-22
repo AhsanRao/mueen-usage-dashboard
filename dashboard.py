@@ -97,7 +97,7 @@ with col_left:
         color="total_users",
         color_continuous_scale="Greens",
     )
-    fig_users.update_layout(coloraxis_showscale=False, height=500, margin=dict(l=10, r=10, t=10, b=10))
+    fig_users.update_layout(coloraxis_showscale=False, height=550, margin=dict(l=10, r=10, t=10, b=10))
     st.plotly_chart(fig_users, use_container_width=True)
 
 with col_right:
@@ -115,35 +115,35 @@ with col_right:
         color="total_queries",
         color_continuous_scale="Oranges",
     )
-    fig_queries.update_layout(coloraxis_showscale=False, height=500, margin=dict(l=10, r=10, t=10, b=10))
+    fig_queries.update_layout(coloraxis_showscale=False, height=550, margin=dict(l=10, r=10, t=10, b=10))
     st.plotly_chart(fig_queries, use_container_width=True)
 
 st.divider()
 
 # ── Query type breakdown ─────────────────────────────────────────────────────
-st.subheader("Usage Breakdown by Query Type")
+# st.subheader("Usage Breakdown by Query Type")
 
-query_type_cols = ["translation", "summarization", "content_generation", "question_answer", "other"]
-breakdown_df = (
-    df[["label"] + query_type_cols]
-    .sort_values("question_answer", ascending=False)
-    .head(15)          # top 15 by Q&A volume for readability
-    .melt(id_vars="label", var_name="Query Type", value_name="Count")
-)
+# query_type_cols = ["translation", "summarization", "content_generation", "question_answer", "other"]
+# breakdown_df = (
+#     df[["label"] + query_type_cols]
+#     .sort_values("question_answer", ascending=False)
+#     .head(15)          # top 15 by Q&A volume for readability
+#     .melt(id_vars="label", var_name="Query Type", value_name="Count")
+# )
 
-fig_stack = px.bar(
-    breakdown_df,
-    x="label",
-    y="Count",
-    color="Query Type",
-    barmode="stack",
-    labels={"label": "Ministry", "Count": "Queries"},
-    color_discrete_sequence=px.colors.qualitative.Set2,
-)
-fig_stack.update_layout(height=420, margin=dict(l=10, r=10, t=10, b=10), xaxis_tickangle=-30)
-st.plotly_chart(fig_stack, use_container_width=True)
+# fig_stack = px.bar(
+#     breakdown_df,
+#     x="label",
+#     y="Count",
+#     color="Query Type",
+#     barmode="stack",
+#     labels={"label": "Ministry", "Count": "Queries"},
+#     color_discrete_sequence=px.colors.qualitative.Set2,
+# )
+# fig_stack.update_layout(height=420, margin=dict(l=10, r=10, t=10, b=10), xaxis_tickangle=-30)
+# st.plotly_chart(fig_stack, use_container_width=True)
 
-st.divider()
+# st.divider()
 
 # ── Registered users per ministry ───────────────────────────────────────────
 st.subheader("Registered Users per Ministry")
@@ -171,11 +171,11 @@ with st.expander("View raw data"):
         "total_messages": "Messages",
         "avg_messages_per_user": "Avg Msgs/User",
         "total_queries": "Total Queries",
-        "translation": "Translation",
-        "summarization": "Summarization",
-        "content_generation": "Content Gen",
-        "question_answer": "Q&A",
-        "other": "Other",
+        # "translation": "Translation",
+        # "summarization": "Summarization",
+        # "content_generation": "Content Gen",
+        # "question_answer": "Q&A",
+        # "other": "Other",
     }
     st.dataframe(
         df[list(display_cols.keys())].rename(columns=display_cols).sort_values("Conversations", ascending=False),
