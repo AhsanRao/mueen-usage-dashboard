@@ -162,6 +162,81 @@ st.plotly_chart(fig_reg, use_container_width=True)
 
 st.divider()
 
+# ── Utilization & frequency ──────────────────────────────────────────────────
+st.subheader("Utilization & Frequency per Ministry")
+
+util_df = (
+    reg[["domain", "user_count", "label"]]
+    .merge(
+        users.rename(columns={"ministry_domain": "domain"}),
+        on="domain", how="left",
+    )
+    .merge(
+        convs[["ministry_domain", "total_conversations", "avg_messages_per_user"]]
+        .rename(columns={"ministry_domain": "domain"}),
+        on="domain", how="left",
+    )
+    .fillna(0)
+)
+util_df["active_pct"]     = (util_df["total_users"] / util_df["user_count"] * 100).clip(upper=100).round(1)
+util_df["convs_per_user"] = (
+    util_df["total_conversations"]
+    .div(util_df["total_users"].replace(0, float("nan")))
+    .round(2)
+    .fillna(0)
+)
+
+uc1, uc2 = st.columns(2)
+
+with uc1:
+    st.markdown("**% of Registered Users Who Are Active**")
+    pct_df = util_df[util_df["active_pct"] > 0].sort_values("active_pct", ascending=True)
+    fig_pct = px.bar(
+        pct_df,
+        x="active_pct",
+        y="label",
+        orientation="h",
+        labels={"active_pct": "Active Users (%)", "label": "Ministry"},
+        color="active_pct",
+        color_continuous_scale="Teal",
+        range_x=[0, 100],
+    )
+    fig_pct.update_layout(coloraxis_showscale=False, height=550, margin=dict(l=10, r=10, t=10, b=10))
+    st.plotly_chart(fig_pct, use_container_width=True)
+
+with uc2:
+    st.markdown("**Conversations per Active User (Frequency)**")
+    freq_df = util_df[util_df["convs_per_user"] > 0].sort_values("convs_per_user", ascending=True)
+    fig_freq = px.bar(
+        freq_df,
+        x="convs_per_user",
+        y="label",
+        orientation="h",
+        labels={"convs_per_user": "Conversations / User", "label": "Ministry"},
+        color="convs_per_user",
+        color_continuous_scale="Reds",
+    )
+    fig_freq.update_layout(coloraxis_showscale=False, height=550, margin=dict(l=10, r=10, t=10, b=10))
+    st.plotly_chart(fig_freq, use_container_width=True)
+
+with st.expander("View utilization table"):
+    show_util = (
+        util_df[["label", "user_count", "total_users", "active_pct", "total_conversations", "convs_per_user", "avg_messages_per_user"]]
+        .rename(columns={
+            "label":                 "Ministry",
+            "user_count":            "Registered Users",
+            "total_users":           "Active Users",
+            "active_pct":            "% Active",
+            "total_conversations":   "Conversations",
+            "convs_per_user":        "Conv / User",
+            "avg_messages_per_user": "Avg Msgs / User",
+        })
+        .sort_values("% Active", ascending=False)
+    )
+    st.dataframe(show_util, use_container_width=True, hide_index=True)
+
+st.divider()
+
 # ── Raw data table ───────────────────────────────────────────────────────────
 with st.expander("View raw data"):
     display_cols = {
