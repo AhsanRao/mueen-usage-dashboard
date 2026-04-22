@@ -31,17 +31,31 @@ def load_data():
 
 df, convs, users, qtypes = load_data()
 
+@st.cache_data
+def load_registered():
+    reg = pd.read_csv("registered_users.csv")
+    reg["label"] = reg["domain"].str.replace(
+        r"\.(gov\.om|edu\.om|om|co)$", "", regex=True
+    ).str.upper()
+    return reg
+
+reg = load_registered()
+
 # ── KPI cards ────────────────────────────────────────────────────────────────
 total_ministries   = df["ministry_domain"].nunique()
 total_users        = int(users["total_users"].sum())
 total_convs        = int(convs["total_conversations"].sum())
 total_messages     = int(convs["total_messages"].sum())
+total_registered   = int(reg["user_count"].sum())
+reg_ministries     = reg["domain"].nunique()
 
-k1, k2, k3, k4 = st.columns(4)
-k1.metric("Total Ministries",     total_ministries)
-k2.metric("Total Active Users",          f"{total_users:,}")
-k3.metric("Total Conversations",  f"{total_convs:,}")
-k4.metric("Total Messages",       f"{total_messages:,}")
+k1, k2, k3, k4, k5, k6 = st.columns(6)
+k1.metric("Total Active Ministries",        total_ministries)
+k2.metric("Total Active Users",      f"{total_users:,}")
+k3.metric("Total Conversations",     f"{total_convs:,}")
+k4.metric("Total Messages",          f"{total_messages:,}")
+k5.metric("Registered Ministries",   reg_ministries)
+k6.metric("Registered Users",        f"{total_registered:,}")
 
 st.divider()
 
@@ -128,6 +142,23 @@ fig_stack = px.bar(
 )
 fig_stack.update_layout(height=420, margin=dict(l=10, r=10, t=10, b=10), xaxis_tickangle=-30)
 st.plotly_chart(fig_stack, use_container_width=True)
+
+st.divider()
+
+# ── Registered users per ministry ───────────────────────────────────────────
+st.subheader("Registered Users per Ministry")
+reg_sorted = reg.sort_values("user_count", ascending=True)
+fig_reg = px.bar(
+    reg_sorted,
+    x="user_count",
+    y="label",
+    orientation="h",
+    labels={"user_count": "Registered Users", "label": "Ministry"},
+    color="user_count",
+    color_continuous_scale="Purples",
+)
+fig_reg.update_layout(coloraxis_showscale=False, height=600, margin=dict(l=10, r=10, t=10, b=10))
+st.plotly_chart(fig_reg, use_container_width=True)
 
 st.divider()
 
