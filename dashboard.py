@@ -85,7 +85,7 @@ st.divider()
 col_left, col_right = st.columns(2)
 
 with col_left:
-    st.subheader("Users per Ministry")
+    st.subheader("Active Users per Ministry")
     user_df = (
         df[["label", "total_users"]]
         .sort_values("total_users", ascending=True)
@@ -105,7 +105,7 @@ with col_left:
     st.plotly_chart(fig_users, use_container_width=True)
 
 with col_right:
-    st.subheader("Total Queries per Ministry")
+    st.subheader("Queries per Ministry in Last 30 Days")
     query_df = (
         df[["label", "total_queries"]]
         .sort_values("total_queries", ascending=True)
@@ -165,7 +165,7 @@ fig_reg = px.bar(
     text="user_count",
 )
 fig_reg.update_traces(textposition="outside", texttemplate="%{x:,}")
-fig_reg.update_layout(coloraxis_showscale=False, height=600, margin=dict(l=10, r=80, t=10, b=10))
+fig_reg.update_layout(coloraxis_showscale=False, height=1200, margin=dict(l=10, r=80, t=10, b=10))
 st.plotly_chart(fig_reg, use_container_width=True)
 
 st.divider()
