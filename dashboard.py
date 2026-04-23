@@ -60,7 +60,7 @@ k6.metric("Registered Users",        f"{total_registered:,}")
 st.divider()
 
 # ── Conversations per ministry ───────────────────────────────────────────────
-st.subheader("Conversations per Ministry")
+st.subheader("Conversations per Ministry in Last 30 Days")
 conv_df = (
     df[["label", "total_conversations"]]
     .sort_values("total_conversations", ascending=True)
@@ -152,7 +152,7 @@ st.divider()
 # st.divider()
 
 # ── Registered users per ministry ───────────────────────────────────────────
-st.subheader("Registered Users per Ministry")
+st.subheader("Total Registered Users per Ministry")
 reg_sorted = reg.sort_values("user_count", ascending=True)
 fig_reg = px.bar(
     reg_sorted,
