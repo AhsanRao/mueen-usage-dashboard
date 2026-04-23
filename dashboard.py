@@ -81,48 +81,69 @@ st.plotly_chart(fig_conv, use_container_width=True)
 
 st.divider()
 
-# ── Users & total queries per ministry (side-by-side) ───────────────────────
-col_left, col_right = st.columns(2)
+# ── Active users per ministry — top 5 / bottom 5 ────────────────────────────
+st.subheader("Active Users per Ministry in Last 30 Days")
 
-with col_left:
-    st.subheader("Active Users per Ministry in Last 30 Days")
-    user_df = (
-        df[["label", "total_users"]]
-        .sort_values("total_users", ascending=True)
-    )
-    fig_users = px.bar(
-        user_df,
-        x="total_users",
-        y="label",
-        orientation="h",
+user_sorted = df[["label", "total_users"]].sort_values("total_users", ascending=False)
+user_top5   = user_sorted.head(5).sort_values("total_users", ascending=True)
+user_bot5   = user_sorted[user_sorted["total_users"] > 0].tail(5).sort_values("total_users", ascending=True)
+
+u_left, u_right = st.columns(2)
+
+with u_left:
+    st.markdown("**Top 5**")
+    fig_u_top = px.bar(
+        user_top5, x="total_users", y="label", orientation="h",
         labels={"total_users": "Users", "label": "Ministry"},
-        color="total_users",
-        color_continuous_scale="Greens",
-        text="total_users",
+        color="total_users", color_continuous_scale="Greens", text="total_users",
     )
-    fig_users.update_traces(textposition="outside", texttemplate="%{x:,}")
-    fig_users.update_layout(coloraxis_showscale=False, height=550, margin=dict(l=10, r=80, t=10, b=10))
-    st.plotly_chart(fig_users, use_container_width=True)
+    fig_u_top.update_traces(textposition="outside", texttemplate="%{x:,}")
+    fig_u_top.update_layout(coloraxis_showscale=False, height=300, margin=dict(l=10, r=80, t=10, b=10))
+    st.plotly_chart(fig_u_top, use_container_width=True)
 
-with col_right:
-    st.subheader("Queries per Ministry in Last 30 Days")
-    query_df = (
-        df[["label", "total_queries"]]
-        .sort_values("total_queries", ascending=True)
+with u_right:
+    st.markdown("**Bottom 5**")
+    fig_u_bot = px.bar(
+        user_bot5, x="total_users", y="label", orientation="h",
+        labels={"total_users": "Users", "label": "Ministry"},
+        color="total_users", color_continuous_scale="Greens", text="total_users",
     )
-    fig_queries = px.bar(
-        query_df,
-        x="total_queries",
-        y="label",
-        orientation="h",
-        labels={"total_queries": "Total Queries", "label": "Ministry"},
-        color="total_queries",
-        color_continuous_scale="Oranges",
-        text="total_queries",
+    fig_u_bot.update_traces(textposition="outside", texttemplate="%{x:,}")
+    fig_u_bot.update_layout(coloraxis_showscale=False, height=300, margin=dict(l=10, r=80, t=10, b=10))
+    st.plotly_chart(fig_u_bot, use_container_width=True)
+
+st.divider()
+
+# ── Queries per ministry — top 5 / bottom 5 ─────────────────────────────────
+st.subheader("Queries per Ministry in Last 30 Days")
+
+query_sorted = df[["label", "total_queries"]].sort_values("total_queries", ascending=False)
+query_top5   = query_sorted.head(5).sort_values("total_queries", ascending=True)
+query_bot5   = query_sorted[query_sorted["total_queries"] > 0].tail(5).sort_values("total_queries", ascending=True)
+
+q_left, q_right = st.columns(2)
+
+with q_left:
+    st.markdown("**Top 5**")
+    fig_q_top = px.bar(
+        query_top5, x="total_queries", y="label", orientation="h",
+        labels={"total_queries": "Queries", "label": "Ministry"},
+        color="total_queries", color_continuous_scale="Oranges", text="total_queries",
     )
-    fig_queries.update_traces(textposition="outside", texttemplate="%{x:,}")
-    fig_queries.update_layout(coloraxis_showscale=False, height=550, margin=dict(l=10, r=80, t=10, b=10))
-    st.plotly_chart(fig_queries, use_container_width=True)
+    fig_q_top.update_traces(textposition="outside", texttemplate="%{x:,}")
+    fig_q_top.update_layout(coloraxis_showscale=False, height=300, margin=dict(l=10, r=80, t=10, b=10))
+    st.plotly_chart(fig_q_top, use_container_width=True)
+
+with q_right:
+    st.markdown("**Bottom 5**")
+    fig_q_bot = px.bar(
+        query_bot5, x="total_queries", y="label", orientation="h",
+        labels={"total_queries": "Queries", "label": "Ministry"},
+        color="total_queries", color_continuous_scale="Oranges", text="total_queries",
+    )
+    fig_q_bot.update_traces(textposition="outside", texttemplate="%{x:,}")
+    fig_q_bot.update_layout(coloraxis_showscale=False, height=300, margin=dict(l=10, r=80, t=10, b=10))
+    st.plotly_chart(fig_q_bot, use_container_width=True)
 
 st.divider()
 
