@@ -85,7 +85,7 @@ st.divider()
 col_left, col_right = st.columns(2)
 
 with col_left:
-    st.subheader("Active Users per Ministry")
+    st.subheader("Active Users per Ministry in Last 30 Days")
     user_df = (
         df[["label", "total_users"]]
         .sort_values("total_users", ascending=True)
@@ -171,7 +171,7 @@ st.plotly_chart(fig_reg, use_container_width=True)
 st.divider()
 
 # ── Utilization & frequency ──────────────────────────────────────────────────
-st.subheader("Utilization & Frequency per Ministry")
+st.subheader("Utilization & Frequency per Ministry in Last 30 Days")
 
 util_df = (
     reg[["domain", "user_count", "label"]]
