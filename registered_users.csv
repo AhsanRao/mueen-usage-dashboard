@@ -1,66 +1,61 @@
-domain,user_count
-mtcit.gov.om,300
-moe.om,166
-mod.gov.om,145
-moh.gov.om,125
-mol.gov.om,73
-nraa.gov.om,52
-ncsi.gov.om,51
-ptlc.gov.om,50
-bur.gov.om,47
-sjc.gov.om,46
-squ.edu.om,42
-utas.edu.om,37
-opaz.gov.om,29
-omaninfo.om,26
-mcsy.gov.om,24
-mara.gov.om,19
-dhr.gov.om,19
-mem.gov.om,18
-taxoman.gov.om,17
-goo.gov.om,8
-nsg.gov.om,7
-madayn.om,7
-rop.gov.om,6
-sai.gov.om,6
-mosd.gov.om,5
-ram.gov.om,4
-oia.gov.om,4
-mjla.gov.om,3
-cpa.gov.om,3
-bsgo.gov.om,3
-tejarah.gov.om,3
-mafwr.gov.om,3
-ithca.om,3
-oaaaqa.gov.om,3
-ro.gov.om,3
-ssg.gov.om,3
-dhofar.gov.om,2
-oman2040.om,2
-economy.gov.om,2
-bng.gov.om,2
-opp.gov.om,2
-moheri.gov.om,2
-gom.gov.om,2
-sme.gov.om,2
-dg.gov.om,2
-caa.gov.om,2
-fsa.gov.om,2
-mof.gov.om,2
-mht.gov.om,2
-mg.gov.om,2
-mata.gov.om,1
-fm.gov.om,1
-cbo.gov.om,1
-moheri.gvo.om,1
-omanchamber.om,1
-gbmoman.com,1
-nraa.gov.o,1
-petrogasep.com,1
-housing.gov.om,1
-omsb.org,1
-apsr.om,1
-iia.om,1
-moi.gov.om,1
-oset.om,1
-alwusta.gov.om,1
+"English Name","Domain","User Count"
+"MTCIT","mtcit.gov.om","300"
+"Ministry of Education","moe.om","168"
+"Ministry of Defence","mod.gov.om","145"
+"Ministry of Health","moh.gov.om","125"
+"Ministry of Labour","mol.gov.om","73"
+"National Records & Archives Authority","nraa.gov.om","52"
+"National Centre for Statistics & Information","ncsi.gov.om","51"
+"Projects, Tenders & Local Content Authority","ptlc.gov.om","50"
+"Governorate of Al Buraimi","bur.gov.om","47"
+"Supreme Judicial Council","sjc.gov.om","46"
+"Sultan Qaboos University","squ.edu.om","42"
+"University of Technology & Applied Sciences","utas.edu.om","38"
+"Special Economic Zones Authority (OPAZ)","opaz.gov.om","31"
+"Ministry of Information","omaninfo.om","27"
+"Ministry of Culture, Sports & Youth","mcsy.gov.om","26"
+"Ministry of Awqaf & Religious Affairs","mara.gov.om","19"
+"Governorate of Al Dhahirah","dhr.gov.om","19"
+"Ministry of Energy & Minerals","mem.gov.om","18"
+"Tax Authority","taxoman.gov.om","18"
+"Internal Security Service","goo.gov.om","8"
+"Governorate of North Al Sharqiyah","nsg.gov.om","7"
+"Madayn","madayn.om","7"
+"Royal Oman Police","rop.gov.om","6"
+"State Audit Institution","sai.gov.om","6"
+"Ministry of Social Development","mosd.gov.om","5"
+"Oman Investment Authority","oia.gov.om","4"
+"Governorate of North Al Batinah","bng.gov.om","4"
+"Royal Academy of Management","ram.gov.om","4"
+"Consumer Protection Authority","cpa.gov.om","3"
+"Royal Court","ro.gov.om","3"
+"Ministry of Agricultural Wealth, Fisheries & Water Resources","mafwr.gov.om","3"
+"Governorate of South Al Batinah","bsgo.gov.om","3"
+"Governorate of South Al Sharqiyah","ssg.gov.om","3"
+"Ministry of Commerce, Industry & Investment Promotion","tejarah.gov.om","3"
+"Oman Academic Accreditation & Quality Assurance Authority","oaaaqa.gov.om","3"
+"Ministry of Justice & Legal Affairs","mjla.gov.om","3"
+"Civil Aviation Authority","caa.gov.om","2"
+"Ministry of Education (moheri domain)","moheri.gov.om","2"
+"Oman Vision 2040 Implementation Follow-up Unit","oman2040.om","2"
+"Ministry of Finance","mof.gov.om","2"
+"Governorate of Muscat","gom.gov.om","2"
+"Governorate of Dhofar","dhofar.gov.om","2"
+"Public Prosecution","opp.gov.om","2"
+"SME Development Authority","sme.gov.om","2"
+"Governorate of Musandam","mg.gov.om","2"
+"Ministry of Heritage & Tourism","mht.gov.om","2"
+"Ministry of Economy","economy.gov.om","2"
+"Financial Services Authority","fsa.gov.om","2"
+"Ministry of Interior","moi.gov.om","1"
+"Ministry of Housing & Urban Planning","housing.gov.om","1"
+"Oman Chamber of Commerce & Industry","omanchamber.om","1"
+"Governorate of Al Wusta","alwusta.gov.om","1"
+"Central Bank of Oman","cbo.gov.om","1"
+"Ministry of Foreign Affairs","fm.gov.om","1"
+"Oman Medical Specialty Board","omsb.org","1"
+"Authority for Public Services Regulation","apsr.om","1"
+"Social Protection Fund","spf.gov.om","0"
+"Environment Authority","ea.gov.om","0"
+"Telecommunications Regulatory Authority","tra.gov.om","0"
+"Governorate of Ad Dakhliyah","dg.gov.om","0"

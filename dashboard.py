@@ -23,10 +23,6 @@ def load_data():
         .merge(qtypes, on="ministry_domain", how="outer")
         .fillna(0)
     )
-    # Pretty label: strip common suffixes for display
-    merged["label"] = merged["ministry_domain"].str.replace(
-        r"\.(gov\.om|edu\.om|om|co)$", "", regex=True
-    ).str.upper()
     return merged, convs, users, qtypes
 
 df, convs, users, qtypes = load_data()
@@ -34,12 +30,16 @@ df, convs, users, qtypes = load_data()
 @st.cache_data
 def load_registered():
     reg = pd.read_csv("registered_users.csv")
-    reg["label"] = reg["domain"].str.replace(
-        r"\.(gov\.om|edu\.om|om|co)$", "", regex=True
-    ).str.upper()
+    reg = reg.rename(columns={"English Name": "english_name", "Domain": "domain", "User Count": "user_count"})
+    reg["user_count"] = pd.to_numeric(reg["user_count"], errors="coerce").fillna(0).astype(int)
+    reg["label"] = reg["english_name"]
     return reg
 
 reg = load_registered()
+
+# Apply English names to main df using the registered users mapping
+name_map = reg.set_index("domain")["english_name"].to_dict()
+df["label"] = df["ministry_domain"].map(name_map).fillna(df["ministry_domain"])
 
 # ── KPI cards ────────────────────────────────────────────────────────────────
 total_ministries   = df["ministry_domain"].nunique()
@@ -73,8 +73,10 @@ fig_conv = px.bar(
     labels={"total_conversations": "Conversations", "label": "Ministry"},
     color="total_conversations",
     color_continuous_scale="Blues",
+    text="total_conversations",
 )
-fig_conv.update_layout(coloraxis_showscale=False, height=550, margin=dict(l=10, r=10, t=10, b=10))
+fig_conv.update_traces(textposition="outside", texttemplate="%{x:,}")
+fig_conv.update_layout(coloraxis_showscale=False, height=550, margin=dict(l=10, r=80, t=10, b=10))
 st.plotly_chart(fig_conv, use_container_width=True)
 
 st.divider()
@@ -96,8 +98,10 @@ with col_left:
         labels={"total_users": "Users", "label": "Ministry"},
         color="total_users",
         color_continuous_scale="Greens",
+        text="total_users",
     )
-    fig_users.update_layout(coloraxis_showscale=False, height=550, margin=dict(l=10, r=10, t=10, b=10))
+    fig_users.update_traces(textposition="outside", texttemplate="%{x:,}")
+    fig_users.update_layout(coloraxis_showscale=False, height=550, margin=dict(l=10, r=80, t=10, b=10))
     st.plotly_chart(fig_users, use_container_width=True)
 
 with col_right:
@@ -114,8 +118,10 @@ with col_right:
         labels={"total_queries": "Total Queries", "label": "Ministry"},
         color="total_queries",
         color_continuous_scale="Oranges",
+        text="total_queries",
     )
-    fig_queries.update_layout(coloraxis_showscale=False, height=550, margin=dict(l=10, r=10, t=10, b=10))
+    fig_queries.update_traces(textposition="outside", texttemplate="%{x:,}")
+    fig_queries.update_layout(coloraxis_showscale=False, height=550, margin=dict(l=10, r=80, t=10, b=10))
     st.plotly_chart(fig_queries, use_container_width=True)
 
 st.divider()
@@ -156,8 +162,10 @@ fig_reg = px.bar(
     labels={"user_count": "Registered Users", "label": "Ministry"},
     color="user_count",
     color_continuous_scale="Purples",
+    text="user_count",
 )
-fig_reg.update_layout(coloraxis_showscale=False, height=600, margin=dict(l=10, r=10, t=10, b=10))
+fig_reg.update_traces(textposition="outside", texttemplate="%{x:,}")
+fig_reg.update_layout(coloraxis_showscale=False, height=600, margin=dict(l=10, r=80, t=10, b=10))
 st.plotly_chart(fig_reg, use_container_width=True)
 
 st.divider()
@@ -200,8 +208,10 @@ with uc1:
         color="active_pct",
         color_continuous_scale="Teal",
         range_x=[0, 100],
+        text="active_pct",
     )
-    fig_pct.update_layout(coloraxis_showscale=False, height=550, margin=dict(l=10, r=10, t=10, b=10))
+    fig_pct.update_traces(textposition="outside", texttemplate="%{x:.1f}%")
+    fig_pct.update_layout(coloraxis_showscale=False, height=550, margin=dict(l=10, r=80, t=10, b=10))
     st.plotly_chart(fig_pct, use_container_width=True)
 
 with uc2:
@@ -215,8 +225,10 @@ with uc2:
         labels={"convs_per_user": "Conversations / User", "label": "Ministry"},
         color="convs_per_user",
         color_continuous_scale="Reds",
+        text="convs_per_user",
     )
-    fig_freq.update_layout(coloraxis_showscale=False, height=550, margin=dict(l=10, r=10, t=10, b=10))
+    fig_freq.update_traces(textposition="outside", texttemplate="%{x:.2f}")
+    fig_freq.update_layout(coloraxis_showscale=False, height=550, margin=dict(l=10, r=80, t=10, b=10))
     st.plotly_chart(fig_freq, use_container_width=True)
 
 with st.expander("View utilization table"):
@@ -233,7 +245,7 @@ with st.expander("View utilization table"):
         })
         .sort_values("% Active", ascending=False)
     )
-    st.dataframe(show_util, use_container_width=True, hide_index=True)
+    st.table(show_util.reset_index(drop=True))
 
 st.divider()
 
