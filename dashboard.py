@@ -250,22 +250,20 @@ with st.expander("View utilization table"):
 st.divider()
 
 # ── Raw data table ───────────────────────────────────────────────────────────
-with st.expander("View raw data"):
+with st.expander("View raw data from last 30 days"):
+    raw_df = df.copy()
+    raw_df["english_name"] = raw_df["ministry_domain"].map(name_map).fillna("")
     display_cols = {
+        "english_name": "Ministry",
         "ministry_domain": "Domain",
         "total_users": "Users",
         "total_conversations": "Conversations",
         "total_messages": "Messages",
         "avg_messages_per_user": "Avg Msgs/User",
         "total_queries": "Total Queries",
-        # "translation": "Translation",
-        # "summarization": "Summarization",
-        # "content_generation": "Content Gen",
-        # "question_answer": "Q&A",
-        # "other": "Other",
     }
     st.dataframe(
-        df[list(display_cols.keys())].rename(columns=display_cols).sort_values("Conversations", ascending=False),
+        raw_df[list(display_cols.keys())].rename(columns=display_cols).sort_values("Conversations", ascending=False),
         use_container_width=True,
         hide_index=True,
     )
