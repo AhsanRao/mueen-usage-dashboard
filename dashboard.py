@@ -10,6 +10,7 @@ st.set_page_config(
 )
 
 st.title("🏛️ Ministry Usage Dashboard")
+st.caption("Analysis as of 26 April 2026")
 
 # ── Load data ────────────────────────────────────────────────────────────────
 @st.cache_data
@@ -304,6 +305,72 @@ with st.expander("View quota table"):
         "quota_used_pct": "% Used",
     }).sort_values("% Used", ascending=False)
     st.dataframe(quota_table.reset_index(drop=True), use_container_width=True, hide_index=True)
+
+st.divider()
+
+# ── Active utilization vs. quota ─────────────────────────────────────────────
+st.subheader("Active Users vs. Quota per Ministry (Last 30 Days)")
+
+active_df = (
+    quota_plot[["domain", "label", "quota_limit", "user_count"]]
+    .rename(columns={"user_count": "registered"})
+    .merge(
+        users.rename(columns={"ministry_domain": "domain"})[["domain", "total_users"]],
+        on="domain", how="left",
+    )
+    .fillna(0)
+)
+active_df["total_users"] = active_df["total_users"].astype(int)
+active_df["registered"]  = active_df["registered"].astype(int)
+active_df = active_df.sort_values("registered", ascending=True)
+
+active_cat = active_df["label"].tolist()
+
+fig_active = go.Figure()
+fig_active.add_trace(go.Bar(
+    y=active_df["label"],
+    x=active_df["quota_limit"],
+    name="Quota",
+    orientation="h",
+    marker_color="lightsteelblue",
+    text=active_df["quota_limit"],
+    textposition="outside",
+    textangle=0,
+    cliponaxis=False,
+))
+fig_active.add_trace(go.Bar(
+    y=active_df["label"],
+    x=active_df["registered"],
+    name="Registered",
+    orientation="h",
+    marker_color="steelblue",
+    text=active_df["registered"],
+    textposition="outside",
+    textangle=0,
+    cliponaxis=False,
+))
+fig_active.add_trace(go.Bar(
+    y=active_df["label"],
+    x=active_df["total_users"],
+    name="Active Users",
+    orientation="h",
+    marker_color="mediumseagreen",
+    text=active_df["total_users"],
+    textposition="outside",
+    textangle=0,
+    cliponaxis=False,
+))
+fig_active.update_layout(
+    barmode="group",
+    height=max(600, len(active_df) * 60),
+    margin=dict(l=10, r=80, t=10, b=10),
+    legend=dict(orientation="h", yanchor="bottom", y=1.01, xanchor="left", x=0),
+    xaxis_title="Users",
+    yaxis=dict(categoryorder="array", categoryarray=active_cat),
+    bargap=0.15,
+    bargroupgap=0.05,
+)
+st.plotly_chart(fig_active, use_container_width=True)
 
 st.divider()
 
