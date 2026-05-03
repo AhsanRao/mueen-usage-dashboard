@@ -212,11 +212,11 @@ st.divider()
 # ── Registered vs. Quota ─────────────────────────────────────────────────────
 st.subheader("Registered vs. Quota per Ministry")
 
-quota_plot = (
-    reg[["domain", "label", "user_count"]]
-    .merge(quota[["domain", "quota_limit", "quota_used_pct"]], on="domain", how="inner")
-    .sort_values("quota_used_pct", ascending=True)
-)
+quota_plot = quota[["domain", "ministry_code", "quota_limit", "keycloak_active_users"]].copy()
+quota_plot["label"] = quota_plot["domain"].map(name_map).fillna(quota_plot["ministry_code"].str.strip())
+quota_plot = quota_plot.rename(columns={"keycloak_active_users": "user_count"})
+quota_plot["quota_used_pct"] = (quota_plot["user_count"] / quota_plot["quota_limit"].replace(0, float("nan")) * 100).round(1).fillna(0)
+quota_plot = quota_plot.sort_values("quota_used_pct", ascending=True)
 
 qc1, qc2 = st.columns([3, 2])
 
