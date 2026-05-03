@@ -309,7 +309,7 @@ with st.expander("View quota table"):
 st.divider()
 
 # ── Active utilization vs. quota ─────────────────────────────────────────────
-st.subheader("Active Users vs. Quota per Ministry (Last 30 Days)")
+st.subheader("Active Utilization vs. Quota per Ministry")
 
 active_df = (
     quota_plot[["domain", "label", "quota_limit", "user_count"]]
