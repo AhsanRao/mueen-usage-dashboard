@@ -1,0 +1,60 @@
+ministry_id,ministry_code,domain,quota_limit,portal_total_users,portal_active_users,keycloak_total_users,keycloak_active_users,common_users,only_in_portal,only_in_keycloak,quota_used_pct
+2,MTCIT,mtcit.gov.om,650,224,220,300,300,219,5,81,34.5
+10,moe,moe.om,600,207,164,170,167,168,39,2,34.5
+11,moh ,moh.gov.om,250,189,123,125,124,123,66,2,75.6
+7,mod,mod.gov.om,200,151,144,144,144,144,7,0,75.5
+14,omaninfo   ,omaninfo.om,250,105,26,27,27,27,78,0,42.0
+72,utas,utas.edu.om,100,77,38,39,38,38,39,1,77.0
+24,mol,mol.gov.om,100,72,72,73,72,72,0,1,72.0
+15,mcsy ,mcsy.gov.om,200,68,26,29,29,27,41,2,34.0
+46,sjc,sjc.gov.om,50,51,46,46,46,46,5,0,102.0
+40,squ,squ.edu.om,350,51,41,42,41,41,10,1,14.6
+18,nraa,nraa.gov.om,50,51,51,52,52,51,0,1,102.0
+44,ncsi ,ncsi.gov.om,50,50,50,51,51,50,0,1,100.0
+45,ptlc,ptlc.gov.om,50,49,49,50,49,49,0,1,98.0
+73,bur,bur.gov.om,50,48,47,47,47,47,1,0,96.0
+57,mem,mem.gov.om,50,45,17,18,17,17,28,1,90.0
+19,mara ,mara.gov.om,250,43,19,19,19,19,24,0,17.2
+61,opaz,opaz.gov.om,50,42,30,31,30,31,11,0,84.0
+78,nsg,nsg.gov.om,150,34,6,7,6,6,28,1,22.7
+53,taxoman,taxoman.gov.om,50,30,21,21,21,21,9,0,60.0
+82,dhr,dhr.gov.om,50,18,17,19,17,17,1,2,36.0
+65,madayn,madayn.om,50,9,7,7,7,7,2,0,18.0
+6,goo,goo.gov.om,100,8,8,8,8,8,0,0,8.0
+79,bng,bng.gov.om,100,5,3,4,3,3,2,1,5.0
+58,dhofar,dhofar.gov.om,50,4,2,2,2,2,2,0,8.0
+51,sai,sai.gov.om,50,4,4,6,4,4,0,2,8.0
+8,ro,ro.gov.om,100,4,3,3,3,3,1,0,4.0
+12,tejarah,tejarah.gov.om,50,3,2,3,2,2,1,1,6.0
+89,gom,gom.gov.om,50,2,2,2,2,2,0,0,4.0
+86,oaaaqa,oaaaqa.gov.om,50,1,1,3,1,1,0,2,2.0
+90,fsa,fsa.gov.om,50,1,0,2,0,0,1,2,2.0
+69,omsb,omsb.org,50,1,0,1,0,0,1,1,2.0
+52,mafwr  ,mafwr.gov.om,50,1,0,3,0,1,0,2,2.0
+38,sme,sme.gov.om,100,1,1,2,1,1,0,1,1.0
+16,mjla ,mjla.gov.om,50,1,0,3,2,0,1,3,2.0
+81,alwusta,alwusta.gov.om,50,1,0,1,0,1,0,0,2.0
+92,opp,opp.gov.om,100,1,0,2,0,0,1,2,1.0
+93,moi,moi.gov.om,50,1,0,1,0,0,1,1,2.0
+91,cbo,cbo.gov.om,100,1,0,1,0,0,1,1,1.0
+95,economy,economy.gov.om,50,1,0,2,0,0,1,2,2.0
+84,oman2040,oman2040.om,50,1,1,2,1,1,0,1,2.0
+97,cpa,cpa.gov.om,150,1,1,3,2,1,0,2,0.7
+94,ram,ram.gov.om,50,1,0,4,3,1,0,3,2.0
+17,spf ,spf.gov.om,50,1,0,0,0,0,1,0,2.0
+56,mht,mht.gov.om,50,1,1,2,1,1,0,1,2.0
+80,bsgo,bsgo.gov.om,50,1,1,3,1,1,0,2,2.0
+83,mof,mof.gov.om,100,1,0,2,0,0,1,2,1.0
+22,ea,ea.gov.om,100,1,0,0,0,0,1,0,1.0
+54,omanchamber,omanchamber.om,50,1,0,1,0,0,1,1,2.0
+71,apsr,apsr.om,50,1,0,1,0,0,1,1,2.0
+55,fm,fm.gov.om,50,1,1,1,1,1,0,0,2.0
+75,ssg,ssg.gov.om,50,1,1,3,1,1,0,2,2.0
+70,mg,mg.gov.om,50,1,1,2,1,1,0,1,2.0
+85,oia,oia.gov.om,50,1,0,4,2,0,1,4,2.0
+50,mosd    ,mosd.gov.om,50,1,1,5,3,1,0,4,2.0
+87,housing,housing.gov.om,100,1,0,1,0,0,1,1,1.0
+59,caa,caa.gov.om,50,1,0,2,0,0,1,2,2.0
+66,tra,tra.gov.om,50,1,0,0,0,0,1,0,2.0
+74,dg,dg.gov.om,100,1,0,2,0,0,1,2,1.0
+62,ROP,ROP.GOV.OM,100,0,0,0,0,0,0,0,0.0

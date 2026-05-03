@@ -28,18 +28,36 @@ def load_data():
 df, convs, users, qtypes = load_data()
 
 @st.cache_data
+def load_ministries():
+    m = pd.read_csv("ministries.csv")
+    m = m.rename(columns={"English Name": "english_name", "Domain": "domain"})
+    m["domain"] = m["domain"].str.strip().str.lower()
+    m = m[m["domain"].notna() & (m["domain"] != "")]
+    return m
+
+@st.cache_data
 def load_registered():
     reg = pd.read_csv("registered_users.csv")
     reg = reg.rename(columns={"English Name": "english_name", "Domain": "domain", "User Count": "user_count"})
     reg["user_count"] = pd.to_numeric(reg["user_count"], errors="coerce").fillna(0).astype(int)
-    reg["label"] = reg["english_name"]
     return reg
 
-reg = load_registered()
+@st.cache_data
+def load_quota_summary():
+    q = pd.read_csv("ministry_quota_summary.csv")
+    q["domain"] = q["domain"].str.strip().str.lower()
+    q = q[~q["domain"].isin(["omandatapark.com", "otech.om", "bot.mueen.om"])]
+    return q
 
-# Apply English names to main df using the registered users mapping
-name_map = reg.set_index("domain")["english_name"].to_dict()
-df["label"] = df["ministry_domain"].map(name_map).fillna(df["ministry_domain"])
+ministries = load_ministries()
+reg        = load_registered()
+quota      = load_quota_summary()
+
+# Build name map from ministries.csv (authoritative), fall back to registered_users.csv
+name_map = ministries.set_index("domain")["english_name"].to_dict()
+name_map.update({k: v for k, v in reg.set_index("domain")["english_name"].to_dict().items() if k not in name_map})
+df["label"]  = df["ministry_domain"].map(name_map).fillna(df["ministry_domain"])
+reg["label"] = reg["domain"].map(name_map).fillna(reg["domain"])
 
 # ── KPI cards ────────────────────────────────────────────────────────────────
 total_ministries   = df["ministry_domain"].nunique()
@@ -188,6 +206,104 @@ fig_reg = px.bar(
 fig_reg.update_traces(textposition="outside", texttemplate="%{x:,}")
 fig_reg.update_layout(coloraxis_showscale=False, height=1200, margin=dict(l=10, r=80, t=10, b=10))
 st.plotly_chart(fig_reg, use_container_width=True)
+
+st.divider()
+
+# ── Registered vs. Quota ─────────────────────────────────────────────────────
+st.subheader("Registered vs. Quota per Ministry")
+
+quota_plot = (
+    reg[["domain", "label", "user_count"]]
+    .merge(quota[["domain", "quota_limit", "quota_used_pct"]], on="domain", how="inner")
+    .sort_values("quota_used_pct", ascending=True)
+)
+
+qc1, qc2 = st.columns([3, 2])
+
+with qc1:
+    st.markdown("**Registered vs. Quota**")
+    fig_quota = go.Figure()
+    fig_quota.add_trace(go.Bar(
+        y=quota_plot["label"],
+        x=quota_plot["quota_limit"],
+        name="Quota",
+        orientation="h",
+        marker_color="lightsteelblue",
+        text=quota_plot["quota_limit"],
+        textposition="outside",
+        textangle=0,
+        cliponaxis=False,
+        textfont=dict(color="steelblue"),
+    ))
+    # Bars wide enough to hold inside text (>= 20 % of quota): label inside white
+    # Bars too thin (< 20 % of quota): label outside dark — avoids overlap in both cases
+    ratio = quota_plot["user_count"] / quota_plot["quota_limit"].replace(0, float("nan"))
+    large = ratio >= 0.20
+    fig_quota.add_trace(go.Bar(
+        y=quota_plot["label"],
+        x=quota_plot["user_count"].where(large),
+        name="Registered",
+        orientation="h",
+        marker_color="steelblue",
+        text=quota_plot["user_count"].where(large),
+        textposition="inside",
+        insidetextanchor="end",
+        textangle=0,
+        textfont=dict(color="white"),
+    ))
+    fig_quota.add_trace(go.Bar(
+        y=quota_plot["label"],
+        x=quota_plot["user_count"].where(~large),
+        name="Registered",
+        showlegend=False,
+        orientation="h",
+        marker_color="steelblue",
+        text=quota_plot["user_count"].where(~large),
+        textposition="outside",
+        textangle=0,
+        cliponaxis=False,
+        textfont=dict(color="steelblue"),
+    ))
+    fig_quota.update_layout(
+        barmode="overlay",
+        height=max(600, len(quota_plot) * 24),
+        margin=dict(l=10, r=80, t=10, b=10),
+        legend=dict(orientation="h", yanchor="bottom", y=1.01, xanchor="left", x=0),
+        xaxis_title="Users",
+    )
+    st.plotly_chart(fig_quota, use_container_width=True)
+
+with qc2:
+    st.markdown("**Quota Used (%)**")
+    fig_pct = px.bar(
+        quota_plot,
+        x="quota_used_pct",
+        y="label",
+        orientation="h",
+        labels={"quota_used_pct": "% Used", "label": "Ministry"},
+        color="quota_used_pct",
+        color_continuous_scale="RdYlGn_r",
+        range_x=[0, max(quota_plot["quota_used_pct"].max() * 1.15, 110)],
+        text="quota_used_pct",
+    )
+    fig_pct.add_vline(x=100, line_dash="dash", line_color="red", line_width=1)
+    fig_pct.update_traces(textposition="outside", texttemplate="%{x:.1f}%", textangle=0, cliponaxis=False)
+    fig_pct.update_layout(
+        coloraxis_showscale=False,
+        height=max(600, len(quota_plot) * 24),
+        margin=dict(l=10, r=80, t=10, b=10),
+    )
+    st.plotly_chart(fig_pct, use_container_width=True)
+
+with st.expander("View quota table"):
+    quota_table = quota_plot[["label", "domain", "user_count", "quota_limit", "quota_used_pct"]].rename(columns={
+        "label":          "Ministry",
+        "domain":         "Domain",
+        "user_count":     "Registered",
+        "quota_limit":    "Quota",
+        "quota_used_pct": "% Used",
+    }).sort_values("% Used", ascending=False)
+    st.dataframe(quota_table.reset_index(drop=True), use_container_width=True, hide_index=True)
 
 st.divider()
 
