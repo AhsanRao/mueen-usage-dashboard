@@ -322,7 +322,7 @@ active_df = (
 )
 active_df["total_users"] = active_df["total_users"].astype(int)
 active_df["registered"]  = active_df["registered"].astype(int)
-active_df = active_df.sort_values("registered", ascending=True)
+active_df = active_df.sort_values("quota_limit", ascending=True)
 
 active_cat = active_df["label"].tolist()
 

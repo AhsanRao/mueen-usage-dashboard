@@ -9,8 +9,8 @@ ministry_id,ministry_code,domain,quota_limit,portal_total_users,portal_active_us
 15,mcsy ,mcsy.gov.om,200,68,26,29,29,27,41,2,34.0
 46,sjc,sjc.gov.om,50,51,46,46,46,46,5,0,102.0
 40,squ,squ.edu.om,350,51,41,42,41,41,10,1,14.6
-18,nraa,nraa.gov.om,50,51,51,52,52,51,0,1,102.0
-44,ncsi ,ncsi.gov.om,50,50,50,51,51,50,0,1,100.0
+18,nraa,nraa.gov.om,52,51,51,52,52,51,0,1,102.0
+44,ncsi ,ncsi.gov.om,51,50,50,51,51,50,0,1,100.0
 45,ptlc,ptlc.gov.om,50,49,49,50,49,49,0,1,98.0
 73,bur,bur.gov.om,50,48,47,47,47,47,1,0,96.0
 57,mem,mem.gov.om,50,45,17,18,17,17,28,1,90.0
