@@ -1,43 +1,49 @@
-"English Name","Domain","User Count"
-"MTCIT","mtcit.gov.om","300"
-"Ministry of Education","moe.om","167"
-"Ministry of Defence","mod.gov.om","144"
-"Ministry of Health","moh.gov.om","124"
-"Ministry of Labour","mol.gov.om","72"
-"National Records & Archives Authority","nraa.gov.om","52"
-"National Centre for Statistics & Information","ncsi.gov.om","51"
-"Projects, Tenders & Local Content Authority","ptlc.gov.om","49"
-"Governorate of Al Buraimi","bur.gov.om","47"
-"Supreme Judicial Council","sjc.gov.om","46"
-"Sultan Qaboos University","squ.edu.om","41"
-"University of Technology & Applied Sciences","utas.edu.om","38"
-"Special Economic Zones Authority (OPAZ)","opaz.gov.om","30"
-"Ministry of Information","omaninfo.om","27"
-"Ministry of Culture, Sports & Youth","mcsy.gov.om","29"
-"Ministry of Awqaf & Religious Affairs","mara.gov.om","19"
-"Governorate of Al Dhahirah","dhr.gov.om","17"
-"Ministry of Energy & Minerals","mem.gov.om","17"
-"Tax Authority","taxoman.gov.om","21"
-"Internal Security Service","goo.gov.om","8"
-"Governorate of North Al Sharqiyah","nsg.gov.om","6"
-"Madayn","madayn.om","7"
-"Royal Oman Police","rop.gov.om","5"
-"State Audit Institution","sai.gov.om","4"
-"Ministry of Social Development","mosd.gov.om","3"
-"Oman Investment Authority","oia.gov.om","2"
-"Governorate of North Al Batinah","bng.gov.om","3"
-"Royal Academy of Management","ram.gov.om","3"
-"Consumer Protection Authority","cpa.gov.om","2"
-"Royal Court","ro.gov.om","3"
-"Governorate of South Al Batinah","bsgo.gov.om","1"
-"Governorate of South Al Sharqiyah","ssg.gov.om","1"
-"Ministry of Commerce, Industry & Investment Promotion","tejarah.gov.om","2"
-"Oman Academic Accreditation & Quality Assurance Authority","oaaaqa.gov.om","1"
-"Ministry of Justice & Legal Affairs","mjla.gov.om","2"
-"Oman Vision 2040 Implementation Follow-up Unit","oman2040.om","1"
-"Governorate of Muscat","gom.gov.om","2"
-"Governorate of Dhofar","dhofar.gov.om","2"
-"SME Development Authority","sme.gov.om","1"
-"Governorate of Musandam","mg.gov.om","1"
-"Ministry of Heritage & Tourism","mht.gov.om","1"
-"Ministry of Foreign Affairs","fm.gov.om","1"
+English Name,Domain,User Count
+MTCIT,mtcit.gov.om,531
+moe,moe.om,259
+mod,mod.gov.om,145
+sjc,sjc.gov.om,131
+moh,moh.gov.om,124
+nsg,nsg.gov.om,113
+mof,mof.gov.om,99
+mol,mol.gov.om,72
+ptlc,ptlc.gov.om,52
+nraa,nraa.gov.om,52
+ncsi,ncsi.gov.om,51
+bur,bur.gov.om,47
+squ,squ.edu.om,47
+utas,utas.edu.om,43
+cpa,cpa.gov.om,41
+moheri.gov.om,moheri.gov.om,39
+opaz,opaz.gov.om,35
+omaninfo,omaninfo.om,29
+mcsy,mcsy.gov.om,29
+taxoman,taxoman.gov.om,26
+mem,mem.gov.om,20
+madayn,madayn.om,20
+mara,mara.gov.om,19
+dhr,dhr.gov.om,19
+fsa,fsa.gov.om,17
+sme,sme.gov.om,16
+oia,oia.gov.om,15
+goo,goo.gov.om,8
+student.squ.edu.om,student.squ.edu.om,6
+ROP,rop.gov.om,5
+sai,sai.gov.om,4
+ro,ro.gov.om,3
+ram,ram.gov.om,3
+bng,bng.gov.om,3
+mht,mht.gov.om,3
+mosd,mosd.gov.om,3
+oaaaqa,oaaaqa.gov.om,2
+mjla,mjla.gov.om,2
+gom,gom.gov.om,2
+dhofar,dhofar.gov.om,2
+tejarah,tejarah.gov.om,2
+omanchamber,omanchamber.om,1
+oman2040,oman2040.om,1
+bsgo,bsgo.gov.om,1
+mg,mg.gov.om,1
+fm,fm.gov.om,1
+ssg,ssg.gov.om,1
+caa,caa.gov.om,1
