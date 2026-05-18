@@ -15,9 +15,9 @@ st.caption("Analysis as of 18 May 2026")
 # ── Load data ────────────────────────────────────────────────────────────────
 @st.cache_data
 def load_data():
-    convs  = pd.read_csv("total_conversations.csv")
-    users  = pd.read_csv("total_users.csv")
-    qtypes = pd.read_csv("question_types.csv")
+    convs  = pd.read_csv("output/total_conversations.csv")
+    users  = pd.read_csv("output/total_users.csv")
+    qtypes = pd.read_csv("output/question_types.csv")
     merged = (
         convs
         .merge(users,  on="ministry_domain", how="outer")
@@ -38,14 +38,14 @@ def load_ministries():
 
 @st.cache_data
 def load_registered():
-    reg = pd.read_csv("registered_users.csv")
+    reg = pd.read_csv("output/registered_users.csv")
     reg = reg.rename(columns={"English Name": "english_name", "Domain": "domain", "User Count": "user_count"})
     reg["user_count"] = pd.to_numeric(reg["user_count"], errors="coerce").fillna(0).astype(int)
     return reg
 
 @st.cache_data
 def load_quota_summary():
-    q = pd.read_csv("ministry_quota_summary.csv")
+    q = pd.read_csv("output/ministry_quota_summary.csv")
     q["domain"] = q["domain"].str.strip().str.lower()
     q = q[~q["domain"].isin(["omandatapark.com", "otech.om", "bot.mueen.om"])]
     return q
@@ -415,7 +415,7 @@ with uc1:
         text="active_pct",
     )
     fig_pct.update_traces(textposition="outside", texttemplate="%{x:.1f}%")
-    fig_pct.update_layout(coloraxis_showscale=False, height=550, margin=dict(l=10, r=80, t=10, b=10))
+    fig_pct.update_layout(coloraxis_showscale=False, height=max(550, len(pct_df) * 28), margin=dict(l=10, r=80, t=10, b=10))
     st.plotly_chart(fig_pct, use_container_width=True)
 
 with uc2:
@@ -432,7 +432,7 @@ with uc2:
         text="convs_per_user",
     )
     fig_freq.update_traces(textposition="outside", texttemplate="%{x:.2f}")
-    fig_freq.update_layout(coloraxis_showscale=False, height=550, margin=dict(l=10, r=80, t=10, b=10))
+    fig_freq.update_layout(coloraxis_showscale=False, height=max(550, len(freq_df) * 28), margin=dict(l=10, r=80, t=10, b=10))
     st.plotly_chart(fig_freq, use_container_width=True)
 
 with st.expander("View utilization table"):
