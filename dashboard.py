@@ -10,7 +10,7 @@ st.set_page_config(
 )
 
 st.title("🏛️ Ministry Usage Dashboard")
-st.caption("Analysis as of 26 April 2026")
+st.caption("Analysis as of 18 May 2026")
 
 # ── Load data ────────────────────────────────────────────────────────────────
 @st.cache_data
